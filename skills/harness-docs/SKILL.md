@@ -14,7 +14,7 @@
 
 ## Phase 1: 초기화 (Initialization)
 
-레포에 문서 인프라를 구축한다.
+**doc-indexer** 에이전트를 사용하여 레포에 문서 인프라를 구축한다.
 
 ### 실행 순서
 
@@ -46,6 +46,8 @@
 ---
 
 ## Phase 2: 진단 (Diagnostics)
+
+**doc-diagnostician** 에이전트를 사용하여 문서 품질을 진단한다.
 
 4계층 점수 체계로 문서 품질을 측정한다.
 
@@ -134,6 +136,8 @@ total_score = (layer1 * 0.4) + (layer2 * 0.3) + (layer3 * 0.2) + (layer4 * 0.1)
 ---
 
 ## Phase 3: 자동 추출 (Auto-extraction)
+
+**doc-extractor** 에이전트를 사용하여 소스코드에서 문서를 자동 생성한다.
 
 소스코드를 분석하여 문서를 자동 생성한다.
 
