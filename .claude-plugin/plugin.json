@@ -1,0 +1,33 @@
+{
+  "name": "harness-docs",
+  "version": "1.0.0",
+  "description": "에이전트를 위한 레포 내 문서 관리 시스템 — 인덱스, 품질 진단, 자동 추출, AGENTS.md 관리",
+  "author": "jojaeyong",
+  "skills": [
+    {
+      "name": "harness-docs",
+      "path": "skills/harness-docs/SKILL.md",
+      "triggers": ["/docs", "/harness-docs", "/docs-diagnose", "/docs-extract", "/agents-md"]
+    }
+  ],
+  "commands": [
+    { "name": "docs-init", "path": "commands/docs-init.md", "description": "docs/ 구조와 index.yml 초기화" },
+    { "name": "docs-diagnose", "path": "commands/docs-diagnose.md", "description": "문서 품질 4계층 진단" },
+    { "name": "docs-extract", "path": "commands/docs-extract.md", "description": "소스코드에서 문서 자동 추출" },
+    { "name": "agents-md", "path": "commands/agents-md.md", "description": "AGENTS.md 생성 및 검증" }
+  ],
+  "agents": [
+    { "name": "doc-indexer", "path": "agents/doc-indexer.md", "description": "레포 스캔 후 index.yml 구축 및 업데이트" },
+    { "name": "doc-diagnostician", "path": "agents/doc-diagnostician.md", "description": "4계층 문서 품질 점수화 엔진" },
+    { "name": "doc-extractor", "path": "agents/doc-extractor.md", "description": "소스코드에서 용어집, UseCase, 스펙 자동 추출" }
+  ],
+  "mcp": {
+    "tools": [
+      { "name": "docs_lookup", "description": "문서 ID 또는 키워드로 문서 경로 및 내용 조회" },
+      { "name": "docs_register", "description": "새 문서를 인덱스에 등록" },
+      { "name": "docs_validate", "description": "인덱스 정합성 및 문서 링크 검증" },
+      { "name": "docs_stale_check", "description": "코드 변경 대비 오래된 문서 탐지" }
+    ]
+  },
+  "license": "MIT"
+}
