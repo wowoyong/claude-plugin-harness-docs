@@ -62,6 +62,10 @@
 | 에러 타입 | `type XxxError struct { ... }` + `func (e *XxxError) Error() string` | glossary |
 | 상수 그룹 | `const ( Xxx = iota ... )` | glossary |
 
+### 미지원 언어 처리
+
+지원하지 않는 언어(Rust, Java, Ruby 등)가 감지되면 '미지원 언어: [language] — 추출 건너뜀' 메시지를 출력하고 해당 에코시스템은 스킵한다.
+
 ## 추출 프로세스 상세
 
 ### Phase 1: 파일 탐색

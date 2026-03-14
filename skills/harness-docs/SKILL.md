@@ -65,11 +65,7 @@
 | 필수 필드 | id, path, type, status 필드가 모두 존재하는지 | error |
 | 타입 유효성 | type 값이 허용된 값인지 | warning |
 
-점수 계산:
-```
-layer1_score = (1 - error_count / total_checks) * 100
-```
-에러가 하나라도 있으면 이 레이어의 최대 점수는 70점으로 제한된다.
+점수 계산: 점수 계산의 정확한 공식은 doc-diagnostician 에이전트를 참조한다.
 
 #### Layer 2: Agent Guide Hygiene (에이전트 가이드 위생) — 가중치 30%
 
@@ -82,10 +78,7 @@ layer1_score = (1 - error_count / total_checks) * 100
 | 디렉토리 구조 | 프로젝트 디렉토리 구조를 포함하는지 | info |
 | 코딩 컨벤션 | 코딩 규칙에 대한 포인터가 있는지 | info |
 
-점수 계산:
-```
-layer2_score = base_score - (error_count * 20) - (warning_count * 10) - (info_missing * 5)
-```
+점수 계산: 점수 계산의 정확한 공식은 doc-diagnostician 에이전트를 참조한다.
 
 #### Layer 3: Harness Principle Alignment (하네스 원칙 준수) — 가중치 20%
 
@@ -311,6 +304,8 @@ pre_commit:
 
 이 플러그인은 다음 MCP 도구를 제공한다. 에이전트는 작업 중 필요에 따라 이 도구를 호출할 수 있다.
 
+> **참고:** MCP 도구는 현재 사양 정의 단계이며, 구현체는 향후 별도 제공 예정입니다.
+
 ### docs_lookup
 
 문서 ID 또는 키워드로 문서를 검색한다.
@@ -347,7 +342,7 @@ pre_commit:
 
 **파라미터:**
 - `id` (string, required): 문서 고유 ID (kebab-case)
-- `path` (string, required): docs/ 기준 상대 경로
+- `path` (string, required): 프로젝트 루트 기준 상대 경로
 - `type` (string, required): 문서 타입
 - `tags` (string[], optional): 태그 목록
 - `references` (string[], optional): 참조 문서 ID 목록
@@ -491,6 +486,7 @@ diagnostics:
     link_quality: 10
   stale_threshold_days: 30       # 오래된 문서 판별 기준 일수
   draft_review_days: 30          # draft 상태 유지 최대 일수
+  ci_fail_grade: "D"             # D 또는 F 등급이면 CI 실패 (exit code 1)
 
 pre_commit:
   enabled: true
@@ -516,6 +512,9 @@ pre_commit:
 
 사용자: /docs-extract --type all
 → 소스코드 스캔, 용어집/유스케이스/스펙 문서 자동 생성
+
+사용자: /agents-md --update
+→ 추출된 문서를 반영하여 AGENTS.md 포인터 갱신
 
 사용자: /agents-md --generate
 → AGENTS.md 자동 생성

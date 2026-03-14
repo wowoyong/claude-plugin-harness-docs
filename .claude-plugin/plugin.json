@@ -7,7 +7,7 @@
     {
       "name": "harness-docs",
       "path": "skills/harness-docs/SKILL.md",
-      "triggers": ["/docs", "/harness-docs", "/docs-diagnose", "/docs-extract", "/agents-md"]
+      "triggers": ["/docs", "/harness-docs", "/docs-init", "/docs-diagnose", "/docs-extract", "/agents-md"]
     }
   ],
   "commands": [

@@ -46,15 +46,7 @@
 - 유령 항목을 인덱스에서 제거
 - 잘못된 날짜 형식을 오늘 날짜로 교체
 
-**점수 계산:**
-```
-error_count = 유령 항목 + 중복 ID + 필수 필드 누락 + 스키마 오류
-warning_count = 고아 문서 + 잘못된 타입 + 잘못된 날짜
-total_checks = 9
-
-error_penalty = error_count > 0 ? max_score = 70 : max_score = 100
-layer1_score = max_score * (1 - (error_count + warning_count * 0.5) / (total_docs * total_checks))
-```
+**점수 계산:** 상세 점수 공식은 doc-diagnostician 에이전트의 절차를 따른다.
 
 ### Layer 2: Agent Guide Hygiene (에이전트 가이드 위생) — 30%
 
@@ -70,20 +62,11 @@ AGENTS.md의 품질과 에이전트 친화성을 검사한다.
 6. **레포 내부 참조**: 모든 링크가 레포 내부 경로를 가리키는지 확인한다.
 
 **자동 수정 가능 (`--fix`):**
-- 외부 링크를 `[REMOVED: 외부 링크]`로 대체하고 경고 주석 추가
+- 외부 링크를 `[REMOVED: 외부 링크]`로 대체하고 경고 주석 추가 (`external_link_in_agents`)
 - AGENTS.md가 없으면 `/agents-md --generate` 실행을 제안
+- `missing_updated`: updated 필드가 없는 문서에 git 마지막 커밋 날짜로 설정
 
-**점수 계산:**
-```
-base_score = 100
-if AGENTS.md 없음: base_score = 0 (즉시 반환)
-if 라인 수 > 100: base_score -= 15
-if 라인 수 > 150: base_score -= 추가 15
-for each 외부 링크: base_score -= 20
-for each 누락 필수 섹션: base_score -= 10
-if 점진적 공개 미흡 (링크 < 3): base_score -= 10
-layer2_score = max(0, base_score)
-```
+**점수 계산:** 상세 점수 공식은 doc-diagnostician 에이전트의 절차를 따른다.
 
 ### Layer 3: Harness Principle Alignment (하네스 원칙 준수) — 20%
 
@@ -215,4 +198,4 @@ Layer 4: Link Quality        [█████████░] 95/100 (가중치 
   run: claude "/docs-diagnose --ci"
 ```
 
-등급 D 이하(60점 미만)이면 exit code 1을 반환하여 CI를 실패시킨다. `.harness/config.yml`에서 임계값을 조정할 수 있다.
+등급 D 또는 F(70점 미만)이면 exit code 1을 반환하여 CI를 실패시킨다. `.harness/config.yml`에서 임계값을 조정할 수 있다.

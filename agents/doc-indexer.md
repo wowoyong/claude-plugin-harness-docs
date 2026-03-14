@@ -90,7 +90,7 @@ extracted_at: null           # 자동 추출 일시 (있는 경우)
   - `standards/` → `standard`
   - `plans/` → `plan`
   - `quality/` → `quality`
-  - 알 수 없는 디렉토리 → 파일 내용 분석으로 추론 시도, 실패 시 `architecture` 기본값
+  - 알 수 없는 디렉토리 → 파일 내용 분석으로 추론 시도, 실패 시 `unknown` 기본값 (경고: "타입을 추론할 수 없습니다. 수동으로 지정해주세요.")
 - 상태: `draft`로 설정한다.
 - 태그: 파일 내 H1, H2 헤딩에서 키워드를 추출한다.
 - 제목: 첫 번째 H1 헤딩(`# 제목`)을 사용한다. 없으면 파일명에서 생성한다.
@@ -117,7 +117,7 @@ architecture, design, spec, glossary, usecase, standard, plan, quality
 | `roadmap`, `milestone` | `plan` |
 | `test`, `testing`, `report` | `quality` |
 
-보정 후에도 매칭되지 않으면 경고를 출력하고 `architecture`를 기본값으로 사용한다.
+보정 후에도 매칭되지 않으면 경고를 출력하고 `unknown`을 기본값으로 사용한다. (경고: "타입을 추론할 수 없습니다. 수동으로 지정해주세요.")
 
 ### Step 4: 참조 관계 분석
 
